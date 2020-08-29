@@ -22,6 +22,8 @@ version: 0.0.1
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 0.0.8
 
+icon: https://raw.githubusercontent.com/romnnn/marina/master/public/icons/icon_lg.jpg
+
 dependencies:
   - name: harbor
     version: ">=1.4.2"
