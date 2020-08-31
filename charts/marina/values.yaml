@@ -2,8 +2,106 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-ldap-manager:
+ldapmanager:
   enabled: true
+  persistence:
+    enabled: true
+
+  openldap:
+    enabled: true
+    fullnameOverride: openldap
+    adminPassword: admin
+    configPassword: config
+    env:
+      LDAP_ORGANISATION: Example Inc.
+      LDAP_DOMAIN: example.org
+      LDAP_BASE_DN: dc=example,dc=org
+      LDAP_READONLY_USER: "true"
+      LDAP_READONLY_USER_USERNAME: readonly
+      LDAP_READONLY_USER_PASSWORD: readonly
+      LDAP_TLS: "false"
+      LDAP_RFC2307BIS_SCHEMA: "true"
+    
+    persistence:
+      enabled: true
+
+  ldap:
+    host: ldap-manager-openldap
+    port: 389
+    protocol: ldap
+    adminPassword: admin
+    configPassword: config
+    readonly:
+      user: readonly
+      password: readonly
+    organization: Example Inc.
+    domain: example.org
+    baseDN: dc=example,dc=org
+    tls: "false"
+    useRFC230BIS: "true"
+
+  auth:
+    generateKeys: "true" 
+    issuer: "issuer@example.org"
+    audience: "example.org"
+
+  accountAttribute: uid
+  groupMembershipAttribute: "uniqueMember"
+  defaultAdminGroup: "admins"
+  groupsOU: "groups"
+
+  # there is the default harbor "admin", so use another username here for the initial LDAP admin
+  defaultAdminUsername: "ldapadmin"
+  defaultAdminPassword: "ldapadmin"
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    httpHosts:
+      - host: ldap.example.org
+        paths: ["/"]
+    grpcHosts: {}
+    #   - host: grpc.ldap.example.org
+    #     paths: ["/"]
+    tls:
+      - secretName: ldapmanager-ingress-tls
+        hosts:
+          - ldap.example.org
 
 harbor:
   enabled: true
+  expose:
+    type: clusterIP
+    tls:
+      enabled: true
+      # if not set, the secret will be automatically generated
+      # secretName: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
+    type: ingress
+    ingress:
+      hosts:
+        core: core.harbor.example.org
+        notary: notary.harbor.example.org
+      controller: default
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        ingress.kubernetes.io/proxy-body-size: "0"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        kubernetes.io/ingress.class: nginx
+  
+  clusterIP:
+    name: harbor
+    ports:
+      httpPort: 80
+      httpsPort: 443
+      notaryPort: 4443
+
+  externalURL: http://core.harbor.example.org
+  harborAdminPassword: "123456"
+
+  persistence:
+    enabled: true
+    # Setting it to "keep" to avoid removing PVCs during a helm delete
+    # operation. Leaving it empty will delete PVCs after the chart deleted
+    resourcePolicy: "keep"
