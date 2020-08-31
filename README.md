@@ -20,39 +20,71 @@ helm repo add ldap-manager https://romnnn.github.io/ldap-manager/charts
 helm repo add marina https://romnnn.github.io/marina/charts
 ```
 
-You can then proceed to install the chart. If you use cert-manager annotations for HTTPS, add the following two values to the installation command:
-```bash
---set "ldapmanager.ingress.annotations\.cert-manager\.io/cluster-issuer=<your-letsencrypt-issuer>" \
---set "harbor.expose.ingress.annotations\.cert-manager\.io/cluster-issuer=<your-letsencrypt-issuer>" \
+For a quickstart installation, edit and save this minimal configuration as `override.yaml`:
+```yaml
+ldapmanager:
+  openldap:
+    adminPassword: changeme1
+    configPassword: changeme2
+    env:
+      LDAP_ORGANISATION: example
+      LDAP_DOMAIN: example.com
+      LDAP_BASE_DN: dc=example,dc=com
+      LDAP_READONLY_USER_PASSWORD: changeme3
+  ldap:
+    adminPassword: changeme1
+    configPassword: changeme2
+    readonly:
+      password: changeme3
+    organization: example
+    domain: example.com
+    baseDN: dc=example,dc=com
+  auth:
+    issuer: example.com
+    audience: example.com
+  defaultAdminUsername: ldapadmin
+  defaultAdminPassword: changeme
+  ingress:
+    # annotations:
+    #     cert-manager.io/cluster-issuer: <your-letsencrypt-issuer>
+    httpHosts:
+      - host: ldap.example.com
+        paths: ["/"]
+    tls:
+      - hosts:
+          - ldap.example.com
+harbor:
+  expose:
+    ingress:
+      # annotations:
+      #     cert-manager.io/cluster-issuer: <your-letsencrypt-issuer>
+      hosts:
+        core: core.harbor.example.com
+        notary: notary.harbor.example.com
+  externalURL: https://core.harbor.example.com
+  harborAdminPassword: changeme
 ```
 
+To install, simply run:
 ```bash
-helm install marina \
-    --namespace marina \
-    --set "ldapmanager.openldap.adminPassword=changeme1" \
-    --set "ldapmanager.openldap.configPassword=changeme2" \
-    --set "ldapmanager.openldap.env.LDAP_ORGANISATION=example" \
-    --set "ldapmanager.openldap.env.LDAP_DOMAIN=example.com" \
-    --set "ldapmanager.openldap.env.LDAP_BASE_DN=dc=example,dc=com" \
-    --set "ldapmanager.openldap.env.LDAP_READONLY_USER_PASSWORD=changeme3" \
-    --set "ldapmanager.ldap.adminPassword=changeme1" \
-    --set "ldapmanager.ldap.configPassword=changeme2" \
-    --set "ldapmanager.ldap.readonly.password=changeme3" \
-    --set "ldapmanager.ldap.organization=example" \
-    --set "ldapmanager.ldap.domain=example.com" \
-    --set "ldapmanager.ldap.baseDN=dc=example,dc=com" \
-    --set "ldapmanager.auth.issuer=example.com" \
-    --set "ldapmanager.auth.audience=example.com" \
-    --set "ldapmanager.defaultAdminUsername=ldapadmin" \
-    --set "ldapmanager.defaultAdminPassword=changeme" \
-    --set "ldapmanager.ingress.httpHosts[0].host=ldap.example.com" \
-    --set "ldapmanager.ingress.tls[0].hosts[0]={ldap.example.com}" \
-    --set "harbor.expose.ingress.hosts.core=core.harbor.example.com" \
-    --set "harbor.expose.ingress.hosts.notary=notary.harbor.example.com" \
-    --set "harbor.externalURL=https://core.harbor.example.com" \
-    --set "harbor.harborAdminPassword=changeme" \
-    marina/marina
+kubectl create namespace marina
+helm install -f override.yaml --namespace marina marina marina/marina
 ```
+
+You can then watch the pods by running `watch kubectl get pods -n marina`.
+
+#### You just want to try it out?
+
+If you just want to try things out with minikube, you can set entries in `/etc/hosts` like this:
+```
+<YOUR-MINIKUBE-IP>      core.harbor.example.com ldap.example.com
+```
+where `<YOUR-MINIKUBE-IP>` can be obtained by running `minikube ip`. 
+If you have not changed any default values, you can login with `admin:changeme` or `ldapadmin:changeme` to core.harbor.example.com and `ldapadmin:changeme` to ldap.example.com.
+
+#### You want to deploy on bare-metal kubernetes from scratch?
+
+See [this guide](./DEPLOYMENT.md) on how to install marina in a bare-metal kubernetes cluster from start to finish.
 
 #### Other open source solutions
 

@@ -4,8 +4,6 @@
 
 ldapmanager:
   enabled: true
-  persistence:
-    enabled: true
 
   openldap:
     enabled: true
@@ -24,9 +22,14 @@ ldapmanager:
     
     persistence:
       enabled: true
+      existingClaim: "marina-ldapmanager-openldap-pvc"
+
+  persistence:
+    enabled: true
+    claimName: "marina-ldapmanager-openldap-pvc" 
 
   ldap:
-    host: ldap-manager-openldap
+    host: openldap
     port: 389
     protocol: ldap
     adminPassword: admin
