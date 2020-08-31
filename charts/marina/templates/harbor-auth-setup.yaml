@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "marina.fullname" . }}-harbor-auth-setup-job
+spec:
+  template:
+    spec:
+      volumes:
+      - name: config
+        secret:
+          secretName: {{ include "marina.fullname" . }}-harbor-auth-config-json
+      containers:
+      - name: configure-auth
+        image: curlimages/curl:7.72.0
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+        env:
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "marina.fullname" . }}-harbor-auth-config-json
+              key: password
+        - name: HOST
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "marina.fullname" . }}-harbor-auth-config-json
+              key: host
+        command:
+        - "bin/sh"
+        - "-c"
+        - 'curl -s -i -X PUT -u "admin:$PASSWORD" -H "Content-Type: application/json" $HOST/api/v2.0/configurations -d @/config/auth.json'
+      restartPolicy: OnFailure
+  backoffLimit: 5
