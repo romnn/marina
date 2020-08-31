@@ -1,0 +1,24 @@
+apiVersion: v1
+entries:
+  marina:
+  - apiVersion: v2
+    appVersion: 0.0.17
+    created: "2020-08-31T21:43:00.323205264Z"
+    dependencies:
+    - condition: harbor.enabled
+      name: harbor
+      repository: '@harbor'
+      version: '>=1.4.2'
+    - condition: ldapmanager.enabled
+      name: ldapmanager
+      repository: '@ldapmanager'
+      version: '>=0.0.17'
+    description: Your own private docker and helm registry on bare-metal kubernetes.
+    digest: ceb2134e832bfd62eb738996ee88ef7aaa9b47cc1aab0bda27f87dabbf01e72d
+    icon: https://raw.githubusercontent.com/romnnn/marina/master/public/icons/icon_lg.jpg
+    name: marina
+    type: application
+    urls:
+    - https://romnnn.github.io/marina/charts/marina-0.0.6.tgz
+    version: 0.0.6
+generated: "2020-08-31T21:43:00.316616555Z"
