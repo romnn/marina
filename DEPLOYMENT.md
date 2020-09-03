@@ -229,7 +229,21 @@ Let's get started!
     /mnt/nfs_share  127.0.0.1(rw,sync,no_subtree_check,no_root_squash,no_all_squash,insecure)
     ```
 
-13. Install marina.
+13. Install the metrics-server that is required to aggregate the usage metrics kubernetes needs for it's autoscaling.
+    ```bash
+    helm install \
+        --set extraArgs."kubelet-insecure-tls"=true \
+        --set extraArgs."kubelet-preferred-address-types"=InternalIP \
+        --set apiService.create=true \
+        metrics-server bitnami/metrics-server
+    ```
+
+    It can take some time for the metrics to show up, but you can check with:
+    ```bash
+    watch kubectl top nodes
+    ```
+
+14. Install marina.
 
     **Note:** If you are feeling lucky you can skip a deployment with the `letsencrypt-staging` issuer and go for the `letsencrypt-prod` issuer right away.
 
