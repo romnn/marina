@@ -20,7 +20,7 @@ version: 0.0.9
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: 0.0.21
+appVersion: 0.0.22
 
 icon: https://romnnn.github.io/marina/icons/icon_lg.jpg
 
@@ -30,6 +30,6 @@ dependencies:
     repository: "@harbor"
     condition: harbor.enabled
   - name: ldapmanager
-    version: ">=0.0.21"
+    version: ">=0.0.22"
     repository: "@ldapmanager"
     condition: ldapmanager.enabled

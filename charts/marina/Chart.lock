@@ -4,6 +4,6 @@ dependencies:
   version: 1.4.2
 - name: ldapmanager
   repository: https://romnnn.github.io/ldap-manager/charts
-  version: 0.0.21
-digest: sha256:0855aa6025a6c51f19d8d92559cd3fa4c3eac1b24947870b3aa3bf360a0241ab
-generated: "2020-09-10T20:15:02.980539055+02:00"
+  version: 0.0.22
+digest: sha256:a6c9226f3d2d5bf473ed849b61a2d1ac66f0c56395815a640f12a33195202981
+generated: "2020-09-14T19:07:45.098056157+02:00"
