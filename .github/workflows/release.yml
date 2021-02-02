@@ -14,8 +14,8 @@ jobs:
         run: helm lint charts/marina/
 
       - run: |
-          echo ::set-env name=REPO_USER::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $1}' ) 
-          echo ::set-env name=REPO_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' ) 
+          echo "repo_user=$(echo ${GITHUB_REPOSITORY} | awk -F / '{print $1}' )" >> $GITHUB_ENV
+          echo "repo_name=$(echo ${GITHUB_REPOSITORY} | awk -F / '{print $2}' )" >> $GITHUB_ENV
 
       - name: Package helm chart
         run: |
@@ -23,7 +23,7 @@ jobs:
           touch ./public/.nojekyll
           charts/marina/add-repos.sh
           helm package --dependency-update --destination ./public/charts charts/marina
-          helm repo index --url https://${REPO_USER}.github.io/${REPO_NAME}/charts ./public/charts
+          helm repo index --url https://${{ env.repo_user }}.github.io/${{ env.repo_name }}/charts ./public/charts
 
       - name: Deploy to pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
