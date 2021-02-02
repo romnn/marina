@@ -1,6 +1,6 @@
 ## marina
 
-[![Build Status](https://travis-ci.com/romnn/marina.svg?branch=master)](https://travis-ci.com/romnn/marina)
+[![Build Status](https://github.com/romnn/marina/workflows/lint/badge.svg)](https://github.com/romnn/marina/actions)
 [![GitHub](https://img.shields.io/github/license/romnn/marina)](https://github.com/romnn/marina)
 [![Release](https://img.shields.io/github/release/romnn/marina)](https://github.com/romnn/marina/releases/latest)
 
