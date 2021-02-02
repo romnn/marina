@@ -19,7 +19,6 @@ jobs:
 
       - name: Package helm chart
         run: |
-          mkdir ./public
           touch ./public/.nojekyll
           charts/marina/add-repos.sh
           helm package --dependency-update --destination ./public/charts charts/marina
