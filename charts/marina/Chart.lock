@@ -3,7 +3,7 @@ dependencies:
   repository: https://helm.goharbor.io
   version: 1.4.2
 - name: ldapmanager
-  repository: https://romnnn.github.io/ldap-manager/charts
+  repository: https://romnn.github.io/ldap-manager/charts
   version: 0.0.23
 digest: sha256:f21c4859deb02d7c5e1c7e4d13149fadd8fd693cdbcdb9459295e24f147bf883
 generated: "2020-09-14T20:23:08.258900708+02:00"

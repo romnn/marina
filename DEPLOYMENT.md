@@ -26,7 +26,7 @@ Let's get started!
     export OUT="/tmp/ansible-playbook-istio-helm-k8s"
 
     # download the playbook from the github master branch
-    git clone -b master --single-branch --depth 1 git@github.com:romnnn/ansible-playbook-istio-helm-k8s.git ${OUT}
+    git clone -b master --single-branch --depth 1 git@github.com:romnn/ansible-playbook-istio-helm-k8s.git ${OUT}
 
     # write a ansible inventory file "hosts"
     # this file tells ansible the IP of the server
@@ -85,11 +85,11 @@ Let's get started!
     ```bash
     helm repo add stable https://kubernetes-charts.storage.googleapis.com/
     helm repo add harbor https://helm.goharbor.io
-    helm repo add ldapmanager https://romnnn.github.io/ldap-manager/charts
+    helm repo add ldapmanager https://romnn.github.io/ldap-manager/charts
     helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
     helm repo add bitnami https://charts.bitnami.com/bitnami
     helm repo add jetstack https://charts.jetstack.io
-    helm repo add marina https://romnnn.github.io/marina/charts
+    helm repo add marina https://romnn.github.io/marina/charts
     ```
 
 6. Install MetalLB to the cluster.
