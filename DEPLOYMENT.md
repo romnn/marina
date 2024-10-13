@@ -121,17 +121,17 @@ Let's get started!
     apiVersion: v1
     kind: ConfigMap
     metadata:
-    namespace: metallb-system
-    name: config
+        namespace: metallb-system
+        name: config
     data:
-    config: |
-        address-pools:
-        - name: default
-        protocol: layer2
-        addresses:
-        # set your public IP here
-        # e.g. 1.1.1.1-1.1.1.1
-        - <IP>-<IP>
+        config: |
+            address-pools:
+            - name: default
+              protocol: layer2
+              addresses:
+              # set your public IP here
+              # e.g. 1.1.1.1-1.1.1.1
+              - <IP>-<IP>
     ```
 
     Add the config map with `kubectl create -f metallb-config.yaml`.
@@ -168,20 +168,20 @@ Let's get started!
     apiVersion: cert-manager.io/v1alpha2
     kind: ClusterIssuer
     metadata:
-    name: letsencrypt-staging
+        name: letsencrypt-staging
     spec:
-    acme:
-        # Email address used for ACME registration
-        email: <YOUR_EMAIL>
-        server: https://acme-staging-v02.api.letsencrypt.org/directory
-        privateKeySecretRef:
-        # Name of a secret used to store the ACME account private key
-        name: letsencrypt-staging-private-key
-        # Add a single challenge solver, HTTP01 using nginx
-        solvers:
-        - http01:
-            ingress:
-            class: nginx
+        acme:
+            # Email address used for ACME registration
+            email: <YOUR_EMAIL>
+            server: https://acme-staging-v02.api.letsencrypt.org/directory
+            privateKeySecretRef:
+                # Name of a secret used to store the ACME account private key
+                name: letsencrypt-staging-private-key
+            # Add a single challenge solver, HTTP01 using nginx
+            solvers:
+            - http01:
+                ingress:
+                class: nginx
     ```
 
     Create the production cluster issuers `prod.yaml`:
