@@ -4,7 +4,7 @@ IP="<YOUR_PUBLIC_IP>"
 SERVICE_USER="<YOUR_NON_ROOT_USER>"
 SERVICE_GROUP="<YOUR_NON_ROOT_USER_GROUP>"
 
-REPO="git@github.com:romnnn/ansible-playbook-istio-helm-k8s.git"
+REPO="git@github.com:romnn/ansible-playbook-istio-helm-k8s.git"
 BRANCH="master"
 OUT="/tmp/ansible-playbook-istio-helm-k8s"
 

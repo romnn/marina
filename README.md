@@ -1,8 +1,8 @@
 ## marina
 
-[![Build Status](https://travis-ci.com/romnnn/marina.svg?branch=master)](https://travis-ci.com/romnnn/marina)
-[![GitHub](https://img.shields.io/github/license/romnnn/marina)](https://github.com/romnnn/marina)
-[![Release](https://img.shields.io/github/release/romnnn/marina)](https://github.com/romnnn/marina/releases/latest)
+[![Build Status](https://github.com/romnn/marina/workflows/lint/badge.svg)](https://github.com/romnn/marina/actions)
+[![GitHub](https://img.shields.io/github/license/romnn/marina)](https://github.com/romnn/marina)
+[![Release](https://img.shields.io/github/release/romnn/marina)](https://github.com/romnn/marina/releases/latest)
 
 <p align="center">
   <img width="100" src="public/icons/icon_lg.jpg">
@@ -16,8 +16,8 @@ Add the following helm repositories that `marina` depends on:
 ```bash
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo add harbor https://helm.goharbor.io
-helm repo add ldap-manager https://romnnn.github.io/ldap-manager/charts
-helm repo add marina https://romnnn.github.io/marina/charts
+helm repo add ldap-manager https://romnn.github.io/ldap-manager/charts
+helm repo add marina https://romnn.github.io/marina/charts
 ```
 
 For a quickstart installation, edit and save this minimal configuration as `override.yaml`:

@@ -1,0 +1,10 @@
+name: lint
+on: [push]
+
+jobs:
+  lint-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint helm chart
+        run: helm lint charts/marina/
